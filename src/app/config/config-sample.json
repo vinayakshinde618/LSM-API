@@ -1,0 +1,30 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "root",
+    "database": "lsm",
+    "host": "localhost",
+    "dialect": "postgres",
+    "PORT": 9008,
+    "base_url": "http://localhost:9001",
+    "frontend_url": "http://localhost:3000"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "root",
+    "database": "toolivo_live_2",
+    "host": "localhost",
+    "dialect": "postgres",
+    "PORT": 9008,
+    "base_url": "http://localhost:9001",
+    "frontend_url": "http://localhost:3000"
+  },
+  "prod": {
+    "username": "bolzenindia_api",
+    "password": "vh]x4NvC?k&5Y~,Q",
+    "database": "bolzenindia_api",
+    "host": "139.162.32.130",
+    "dialect": "postgres",
+    "PORT": 9008
+  }
+}
