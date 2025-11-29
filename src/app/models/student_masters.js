@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
     status: DataTypes.INTEGER,
     is_active: DataTypes.BOOLEAN,
     created_by: DataTypes.INTEGER,
-    updated_by: DataTypes.INTEGER
+    updated_by: DataTypes.INTEGER 
   }, {
     sequelize,
     modelName: 'student_masters',
