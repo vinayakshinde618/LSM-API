@@ -1,0 +1,5 @@
+node_modules
+src/app/config/config.json
+.env
+uploads/*
+logs/*

@@ -1,0 +1,20 @@
+sequelize model:generate --name tenants --attributes tenant_name:string,email_id:string,phone:string,logo:string,address:text,is_active:boolean,created_by:integer,updated_by:integer
+sequelize model:generate --name role_masters --attributes tenant_id:integer,role_name:string,is_active:boolean
+sequelize model:generate --name menu_masters --attributes tenant_id:integer,menu_name:string,menu_url:string,menu_icon:string,is_child:boolean,parent_id:integer,sequence:integer,is_active:boolean,created_by:integer,updated_by:integer
+sequelize model:generate --name menu_access_masters --attributes tenant_id:integer,role_id:integer,menu_id:integer,access:boolean,is_active:boolean,created_by:integer,updated_by:integer
+sequelize model:generate --name branch_masters --attributes tenant_id:integer,branch_name:string,address:text,contact_number:bigint,is_active:boolean,created_by:integer,updated_by:integer
+sequelize model:generate --name floor_masters --attributes tenant_id:integer,branch_id:integer,floor_name:string,capacity:integer,is_active:boolean,created_by:integer,updated_by:integer
+sequelize model:generate --name seat_masters --attributes tenant_id:integer,branch_id:integer,floor_id:integer,seat_number:string,seat_type:string,is_active:boolean,created_by:integer,updated_by:integer
+sequelize model:generate --name user_masters --attributes tenant_id:integer,role_id:integer,name:string,email_id:string,username:string,password:string,mobile_number:bigint,is_active:boolean,created_by:integer,updated_by:integer
+sequelize model:generate --name student_masters --attributes tenant_id:integer,branch_id:integer,floor_id:integer,student_code:integer,full_name:string,mobile_number:string,email_id:string,dob:string,gender:string,address:text,photo:text,id_proof:text,joining_date:date,status:integer,is_active:boolean,created_by:integer,updated_by:integer
+sequelize model:generate --name seat_slot_masters --attributes tenant_id:integer,slot_name:string,slot_type:string,start_time:date,end_time:date,is_active:boolean,created_by:integer,updated_by:integer
+sequelize model:generate --name payment_plans --attributes tenant_id:integer,plan_name:string,duration_days:integer,slot_applicable:string,amount:decimal,is_refundable:boolean,is_active:boolean,created_by:integer,updated_by:integer
+sequelize model:generate --name term_and_condition_masters --attributes tenant_id:integer,title:string,description:text,is_active:boolean,created_by:integer,updated_by:integer
+sequelize model:generate --name library_facility_masters --attributes tenant_id:integer,facility_name:string,icon:string,is_premium:boolean,is_active:boolean,created_by:integer,updated_by:integer
+sequelize model:generate --name student_attachements --attributes tenant_id:integer,student_id:integer,attachment_name:string,attachments:text,is_active:boolean,created_by:integer,updated_by:integer
+sequelize model:generate --name expense_type_masters --attributes tenant_id:integer,expense_type_name:string,is_active:boolean,created_by:integer,updated_by:integer
+
+sequelize model:generate --name seat_bookings --attributes tenant_id:integer,branch_id:integer,floor_id:integer,student_id:integer,seat_id:integer,slot_id:integer,plan_id:integer,start_date:date,end_date:date,status:integer,is_active:boolean,created_by:integer,updated_by:integer
+sequelize model:generate --name payments --attributes booking_id:integer,student_id:integer,amount:float,mode:integer,transaction_id:string,is_active:boolean
+sequelize model:generate --name notifications --attributes tenant_id:integer,student_id:integer,type:integer,title:string,message:string,status:integer,is_active:boolean,created_by:integer,updated_by:integer
+sequelize model:generate --name expences --attributes tenant_id:integer,branch_id:integer,expense_type_id:integer,amount:float,bill_photo:text,expense_date:date,is_active:boolean,created_by:integer,updated_by:integer

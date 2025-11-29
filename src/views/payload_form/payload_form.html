@@ -1,0 +1,920 @@
+<div class="mt-4">
+  <div class="form-group">
+    <div class="col-md-3 mb-3">
+      <label for="modelName">Model Name:</label>
+      <select id="modelName" class="form-control mt-1">
+        <option>Select Model</option>
+      </select>
+    </div>
+
+    <!-- Where Condition Section -->
+    <div id="whereConditionHide">
+      <div class="condition_title_and_btn_container">
+        <h4 class="condition_title">Where Condition</h4>
+        <button class="btn btn-primary mb-2 addWhereConditionButton">
+          Add
+        </button>
+      </div>
+      <div id="whereConditionContainer">
+        <div class="row mb-2 where-condition-row">
+          <div class="col-md-4">
+            <select class="form-control whereColumnSelect">
+              <option value="" disabled selected>Select</option>
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <select class="form-control whereConditionSelect">
+              <option value="" disabled selected>Select Condition</option>
+              <option value="=">=</option>
+              <option value="LIKE">LIKE</option>
+              <option value="IN (...)">IN (...)</option>
+              <option value="NOT IN (...)">NOT IN (...)</option>
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <input type="text" class="form-control whereConditionValue" placeholder="Value" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <!-- <h3 class="">Relations:</h3> -->
+    <button id="addRelationButton" class="btn btn-primary mb-3">
+      Add Relations
+    </button>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <table class="table table-bordered" id="additionalRelations" style="table-layout: auto; width: 100%">
+        <thead>
+          <tr>
+            <th>Sr. No.</th>
+            <th style="white-space: nowrap">Module</th>
+            <th style="white-space: nowrap">Module Alias</th>
+            <th style="white-space: nowrap">Sub Module</th>
+            <th style="white-space: nowrap">SM Alias</th>
+            <th style="white-space: nowrap">Sub Sub Module</th>
+            <th style="white-space: nowrap">SSM Alias</th>
+            <th style="white-space: nowrap">Required</th>
+            <th style="white-space: nowrap">Module WCR</th>
+            <th style="white-space: nowrap">Sub Module WCR</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="relation-row" id="relationTemplate" style="display: none">
+            <td class="sr-no">0</td>
+            <td>
+              <select class="form-control moduleSelect" name="moduleName">
+                <option>Select Module</option>
+              </select>
+            </td>
+            <td>
+              <input type="text" class="form-control" placeholder="Module Alias" name="moduleAlias" />
+            </td>
+            <td>
+              <select class="form-control subModuleSelect" name="subModuleName">
+                <option>Select Sub Module</option>
+              </select>
+            </td>
+            <td>
+              <input type="text" class="form-control" placeholder="Sub Module Alias" name="subModuleAlias" />
+            </td>
+            <td>
+              <select class="form-control subSubModuleSelect" name="subSubModuleName">
+                <option>Select Sub Sub Module</option>
+              </select>
+            </td>
+            <td>
+              <input type="text" class="form-control" placeholder="Sub Sub Module Alias" name="subSubModuleAlias" />
+            </td>
+            <td>
+              <input type="checkbox" class="form-check-input requiredCheckbox" />
+            </td>
+            <td>
+              <input type="checkbox" class="form-check-input subModuleWhereConditionCheckbox" />
+            </td>
+            <td>
+              <input type="checkbox" class="form-check-input subSubModuleWhereConditionCheckbox" />
+            </td>
+            <td>
+              <button class="btn btn-danger removeRelationButton">
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="d-flex justify-content-between">
+        <!-- Module Where Condition Section -->
+        <div class="flex-grow-1 mx-2" id="moduleWhereConditionHide">
+          <div class="condition_title_and_btn_container">
+            <h4 class="condition_title">Module Where Condition</h4>
+            <button class="btn btn-primary mb-2 addModuleWhereConditionButton">
+              Add
+            </button>
+          </div>
+          <div id="moduleWhereConditionContainer">
+            <div class="row mb-2 where-condition-row">
+              <div class="col-md-4">
+                <select class="form-control moduleWhereColumnSelect">
+                  <option>Select Column</option>
+                </select>
+              </div>
+
+              <div class="col-md-4">
+                <select class="form-control moduleWhereConditionSelect">
+                  <option value="" disabled selected>Select Condition</option>
+                  <option value="=">=</option>
+                  <option value="LIKE">LIKE</option>
+                  <option value="IN (...)">IN (...)</option>
+                  <option value="NOT IN (...)">NOT IN (...)</option>
+                </select>
+              </div>
+
+              <div class="col-md-4">
+                <input type="text" class="form-control moduleWhereConditionValue" placeholder="Value" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sub Module Where Condition Section -->
+        <div id="subModuleWhereConditionHide" class="flex-grow-1 mx-2">
+          <div class="condition_title_and_btn_container">
+            <h4 class="condition_title">Sub Module Where Condition</h4>
+            <button class="btn btn-primary mb-2 addSubModuleWhereConditionButton">
+              Add
+            </button>
+          </div>
+          <div id="subModuleWhereConditionContainer">
+            <div class="row mb-2 where-condition-row">
+              <div class="col-md-4">
+                <select class="form-control subModuleWhereColumnSelect">
+                  <option>Select Column</option>
+                </select>
+              </div>
+
+              <div class="col-md-4">
+                <select class="form-control subModuleWhereConditionSelect">
+                  <option value="" disabled selected>Select Condition</option>
+                  <option value="=">=</option>
+                  <option value="LIKE">LIKE</option>
+                  <option value="IN (...)">IN (...)</option>
+                  <option value="NOT IN (...)">NOT IN (...)</option>
+                </select>
+              </div>
+
+              <div class="col-md-4">
+                <input type="text" class="form-control subModuleWhereConditionValue" placeholder="Value" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sub Sub Module Where Condition Section -->
+        <div id="subSubModuleWhereConditionHide" class="flex-grow-1 mx-2">
+          <div class="condition_title_and_btn_container">
+            <h4 class="condition_title">Sub Sub Module Where Condition</h4>
+            <button class="btn btn-primary mb-2 addSubSubModuleWhereConditionButton">
+              Add
+            </button>
+          </div>
+          <div id="subSubModuleWhereConditionContainer">
+            <div class="row mb-2 where-condition-row">
+              <div class="col-md-4">
+                <select class="form-control subSubModuleWhereColumnSelect">
+                  <option>Select Column</option>
+                </select>
+              </div>
+
+              <div class="col-md-4">
+                <select class="form-control subSubModuleWhereConditionSelect">
+                  <option value="" disabled selected>Select Condition</option>
+                  <option value="=">=</option>
+                  <option value="LIKE">LIKE</option>
+                  <option value="IN (...)">IN (...)</option>
+                  <option value="NOT IN (...)">NOT IN (...)</option>
+                </select>
+              </div>
+
+              <div class="col-md-4">
+                <input type="text" class="form-control subSubModuleWhereConditionValue" placeholder="Value" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button id="generatePayloadButton" class="btn btn-primary mt-3 mb-3">
+    Generate Payload
+  </button>
+
+  <div id="JSONContainerHide">
+    <pre id="jsonDisplay"></pre>
+    <button id="copyButton"><i class="fas fa-copy"></i></button>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+  <script>
+    window.onload = function () {
+      const loginUser = localStorage.getItem("loginUser");
+      if (!loginUser) {
+        window.location.href = "/login";
+      }
+    };
+
+    $(document).ready(function () {
+      const modelNameSelect = $("#modelName");
+      const additionalRelationsContainer = $("#additionalRelations tbody");
+      let fetchedData = [];
+
+      // Fetch all data with a single API call and populate the dropdowns
+      fetchAllData();
+
+      function fetchAllData() {
+        fetch(`${config.base_url}/api/modelList`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.code === 1 && Array.isArray(data.data)) {
+              fetchedData = data.data.filter(element => { return element !== 'index'; });
+              // Populate the Model dropdown
+              populateDropdown(modelNameSelect, fetchedData, "Select Model");
+            } else {
+              console.error(
+                "Failed to fetch data or unexpected data structure"
+              );
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+
+      function populateDropdown(selectElement, items, defaultText) {
+        selectElement.empty().append(`<option>${defaultText}</option>`);
+        items.forEach((item) => {
+          selectElement.append(new Option(item, item));
+        });
+      }
+
+      // Model selection change
+      modelNameSelect.on("change", function () {
+        const selectedModel = $(this).val();
+        if (selectedModel && selectedModel !== "Select Model") {
+          $("#whereConditionHide").show();
+          fetchColumnList(selectedModel, ".whereColumnSelect");
+        } else {
+          $("#whereConditionHide").hide();
+        }
+      });
+
+      // Add relation logic
+      $("#addRelationButton").on("click", function () {
+        addRelation(additionalRelationsContainer);
+      });
+
+      function addRelation(container) {
+        const relationTemplate = $("#relationTemplate").clone();
+        const newRow = relationTemplate.attr("id", "").removeAttr("style");
+
+        // Update the serial number
+        const newSrNo = container.children().length;
+        newRow.find(".sr-no").text(newSrNo);
+
+        // Clear inputs in the cloned block
+        newRow.find('input[type="text"]').val("");
+        newRow.find("select").prop("selectedIndex", 0);
+
+        // Append the new row to the container
+        container.append(newRow);
+
+        // Populate the dropdowns for the newly added row
+        populateModuleSubModuleDropdowns(newRow);
+
+        // Module selection change
+        newRow.find(".moduleSelect").on("change", function () {
+          const selectedModule = $(this).val();
+          if (selectedModule && selectedModule !== "Select Module") {
+            $("#moduleWhereConditionHide").show();
+            fetchColumnList(selectedModule, ".moduleWhereColumnSelect");
+            // Automatically set the Module Alias to the selected Module name
+            newRow.find('input[name="moduleAlias"]').val(selectedModule);
+          } else {
+            $("#moduleWhereConditionHide").hide();
+          }
+        });
+
+        // Sub Module selection change
+        newRow.find(".subModuleSelect").on("change", function () {
+          const selectedSubModule = $(this).val();
+          if (selectedSubModule && selectedSubModule !== "Select Sub Module") {
+            $("#subModuleWhereConditionHide").show();
+            // Set the Sub Module Alias to the selected sub module name
+            newRow.find('input[name="subModuleAlias"]').val(selectedSubModule);
+            // Fetch the column list for the sub sub where condition
+            fetchColumnList(selectedSubModule, ".subModuleWhereColumnSelect");
+          } else {
+            $("#subModuleWhereConditionHide").hide();
+          }
+        });
+
+        // Sub Sub Module selection change
+        newRow.find(".subSubModuleSelect").on("change", function () {
+          const selectedSubSubModule = $(this).val();
+          if (
+            selectedSubSubModule &&
+            selectedSubSubModule !== "Select Sub Sub Module"
+          ) {
+            $("#subSubModuleWhereConditionHide").show();
+
+            // Set the Sub Sub Module Alias to the selected sub sub module name
+            newRow
+              .find('input[name="subSubModuleAlias"]')
+              .val(selectedSubSubModule);
+            fetchColumnList(
+              selectedSubSubModule,
+              ".subSubModuleWhereColumnSelect"
+            );
+          } else {
+            $("#subSubModuleWhereConditionHide").hide();
+          }
+        });
+
+        // Add event listener for the remove button
+        newRow.find(".removeRelationButton").on("click", function () {
+          $(this).closest("tr").remove();
+          updateSrNo(container);
+        });
+      }
+
+      function populateModuleSubModuleDropdowns(row) {
+        populateDropdown(
+          row.find(".moduleSelect"),
+          fetchedData,
+          "Select Module"
+        );
+        populateDropdown(
+          row.find(".subModuleSelect"),
+          fetchedData,
+          "Select Sub Module"
+        );
+        populateDropdown(
+          row.find(".subSubModuleSelect"),
+          fetchedData,
+          "Select Sub Sub Module"
+        );
+      }
+
+      function fetchColumnList(modelName, targetSelect) {
+        fetch(`${config.base_url}/api/columnListByModel/${modelName}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.code === 1 && Array.isArray(data.data)) {
+              populateDropdown($(targetSelect), data.data, "Select Column");
+            } else {
+              console.error(
+                "Failed to fetch column list or unexpected data structure"
+              );
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+
+      function updateSrNo(container) {
+        container.children().each(function (index) {
+          $(this)
+            .find(".sr-no")
+            .text(index + 1);
+        });
+      }
+    });
+
+    // handle Add new filed whereCondition
+    $(document).on("click", ".addWhereConditionButton", function (e) {
+      e.preventDefault();
+
+      // Find the last row in the container
+      const $row = $("#whereConditionContainer .where-condition-row").last();
+      const column = $row.find(".whereColumnSelect").val();
+      const condition = $row.find(".whereConditionSelect").val();
+      let value = $row.find(".whereConditionValue").val();
+
+      if (column && condition && value) {
+        const newRow = $row.clone(); // Clone the last row
+        //newRow.find('.whereColumnSelect').val('');
+        newRow.find(".whereConditionSelect").val("");
+        newRow.find(".whereConditionValue").val("");
+        $("#whereConditionContainer").append(newRow);
+      } else {
+        alert("Please select a column, condition, and provide a value.");
+      }
+    });
+
+    // handle Add new filed module whereCondition
+    $(document).on("click", ".addModuleWhereConditionButton", function (e) {
+      e.preventDefault();
+
+      const $row = $(
+        "#moduleWhereConditionContainer .where-condition-row"
+      ).last();
+      const column = $row.find(".moduleWhereColumnSelect").val();
+      const condition = $row.find(".moduleWhereConditionSelect").val();
+      let value = $row.find(".moduleWhereConditionValue").val();
+
+      if (column && condition && value) {
+        const newRow = $row.clone();
+        // newRow.find('.moduleWhereColumnSelect').val('');
+        newRow.find(".moduleWhereConditionSelect").val("");
+        newRow.find(".moduleWhereConditionValue").val("");
+        $("#moduleWhereConditionContainer").append(newRow);
+      } else {
+        alert("Please select a column, condition, and provide a value.");
+      }
+    });
+
+    // handle Add new filed sub module whereCondition
+    $(document).on("click", ".addSubModuleWhereConditionButton", function (e) {
+      e.preventDefault();
+
+      const $row = $(
+        "#subModuleWhereConditionContainer .where-condition-row"
+      ).last();
+      const column = $row.find(".subModuleWhereColumnSelect").val();
+      const condition = $row.find(".subModuleWhereConditionSelect").val();
+      let value = $row.find(".subModuleWhereConditionValue").val();
+
+      if (column && condition && value) {
+        const newRow = $row.clone();
+        // newRow.find('.subModuleWhereColumnSelect').val('');
+        newRow.find(".subModuleWhereConditionSelect").val("");
+        newRow.find(".subModuleWhereConditionValue").val("");
+        $("#subModuleWhereConditionContainer").append(newRow);
+      } else {
+        alert("Please select a column, condition, and provide a value.");
+      }
+    });
+
+    // handle Add new filed sub sub module whereCondition
+    $(document).on(
+      "click",
+      ".addSubSubModuleWhereConditionButton",
+      function (e) {
+        e.preventDefault();
+
+        const $row = $(
+          "#subSubModuleWhereConditionContainer .where-condition-row"
+        ).last();
+        const column = $row.find(".subSubModuleWhereColumnSelect").val();
+        const condition = $row.find(".subSubModuleWhereConditionSelect").val();
+        let value = $row.find(".subSubModuleWhereConditionValue").val();
+
+        if (column && condition && value) {
+          const newRow = $row.clone();
+          // newRow.find('.subSubModuleWhereColumnSelect').val('');
+          newRow.find(".subSubModuleWhereConditionSelect").val("");
+          newRow.find(".subSubModuleWhereConditionValue").val("");
+          $("#subSubModuleWhereConditionContainer").append(newRow);
+        } else {
+          alert("Please select a column, condition, and provide a value.");
+        }
+      }
+    );
+
+    // Function to generate the payload
+    let filteredResponse = null;
+    async function generatePayload() {
+      $("#JSONContainerHide").show();
+      const modelName = $("#modelName").val();
+
+      // Collect relations data
+      const relations = [];
+      $("#additionalRelations tbody tr.relation-row").each(function () {
+        const relation = {
+          module: $(this).find(".moduleSelect").val(),
+          moduleAs: $(this).find('input[name="moduleAlias"]').val(),
+          subModule: $(this).find(".subModuleSelect").val(),
+          subModuleAs: $(this).find('input[name="subModuleAlias"]').val(),
+          subSubModule: $(this).find(".subSubModuleSelect").val(),
+          subSubModuleAs: $(this).find('input[name="subSubModuleAlias"]').val(),
+          isModuleWhereConditionRequired: $(this)
+            .find(".subModuleWhereConditionCheckbox")
+            .is(":checked"),
+          isSubModuleWhereConditionRequired: $(this)
+            .find(".subSubModuleWhereConditionCheckbox")
+            .is(":checked"),
+          required: $(this).find(".requiredCheckbox").is(":checked"),
+        };
+        relations.push(relation);
+      });
+
+      // Collect Where Condition data
+      let whereCondition = {};
+      $("#whereConditionContainer .row").each(function () {
+        const column = $(this).find(".whereColumnSelect").val();
+        const condition = $(this).find(".whereConditionSelect").val();
+        let value = $(this).find(".whereConditionValue").val();
+
+        // Check if a valid column and condition are selected
+        if (column && condition) {
+          if (condition === "=") {
+            whereCondition[column] = value;
+          } else if (condition === "LIKE") {
+            whereCondition[column] = { like: value };
+          } else if (condition === "IN (...)") {
+            const valuesArray = value.split(",").map((v) => v.trim());
+
+            if (whereCondition[column] && whereCondition[column].in) {
+              whereCondition[column].in = [
+                ...new Set([...whereCondition[column].in, ...valuesArray]),
+              ];
+            } else {
+              whereCondition[column] = { in: valuesArray };
+            }
+          } else if (condition === "NOT IN (...)") {
+            const valuesArray = value.split(",").map((v) => v.trim());
+
+            if (whereCondition[column] && whereCondition[column].notin) {
+              whereCondition[column].notin = [
+                ...new Set([...whereCondition[column].notin, ...valuesArray]),
+              ];
+            } else {
+              whereCondition[column] = { notin: valuesArray };
+            }
+          }
+        }
+      });
+
+      //  Collect Module Where Condition data
+      let moduleWhereConditions = {};
+      $("#moduleWhereConditionContainer .row").each(function () {
+        const column = $(this).find(".moduleWhereColumnSelect").val();
+        const condition = $(this).find(".moduleWhereConditionSelect").val();
+        let value = $(this).find(".moduleWhereConditionValue").val();
+
+        // Check if a valid column and condition are selected
+        if (column && condition) {
+          if (condition === "=") {
+            moduleWhereConditions[column] = value;
+          } else if (condition === "LIKE") {
+            moduleWhereConditions[column] = { like: value };
+          } else if (condition === "IN (...)") {
+            const valuesArray = value.split(",").map((v) => v.trim());
+            if (
+              moduleWhereConditions[column] &&
+              moduleWhereConditions[column].in
+            ) {
+              moduleWhereConditions[column].in = [
+                ...new Set([
+                  ...moduleWhereConditions[column].in,
+                  ...valuesArray,
+                ]),
+              ];
+            } else {
+              moduleWhereConditions[column] = { in: valuesArray };
+            }
+          } else if (condition === "NOT IN (...)") {
+            const valuesArray = value.split(",").map((v) => v.trim());
+
+            if (
+              moduleWhereConditions[column] &&
+              moduleWhereConditions[column].notin
+            ) {
+              moduleWhereConditions[column].notin = [
+                ...new Set([
+                  ...moduleWhereConditions[column].notin,
+                  ...valuesArray,
+                ]),
+              ];
+            } else {
+              moduleWhereConditions[column] = { notin: valuesArray };
+            }
+          }
+        }
+      });
+
+      //  Collect Sub Module Where Condition data
+      let subModuleWhereConditions = {};
+      $("#subModuleWhereConditionContainer .row").each(function () {
+        const column = $(this).find(".subModuleWhereColumnSelect").val();
+        const condition = $(this).find(".subModuleWhereConditionSelect").val();
+        let value = $(this).find(".subModuleWhereConditionValue").val();
+
+        // Check if a valid column and condition are selected
+        if (column && condition) {
+          if (condition === "=") {
+            subModuleWhereConditions[column] = value;
+          } else if (condition === "LIKE") {
+            subModuleWhereConditions[column] = { like: value };
+          } else if (condition === "IN (...)") {
+            const valuesArray = value.split(",").map((v) => v.trim());
+            if (
+              subModuleWhereConditions[column] &&
+              subModuleWhereConditions[column].in
+            ) {
+              subModuleWhereConditions[column].in = [
+                ...new Set([
+                  ...subModuleWhereConditions[column].in,
+                  ...valuesArray,
+                ]),
+              ];
+            } else {
+              subModuleWhereConditions[column] = { in: valuesArray };
+            }
+          } else if (condition === "NOT IN (...)") {
+            const valuesArray = value.split(",").map((v) => v.trim());
+            if (
+              subModuleWhereConditions[column] &&
+              subModuleWhereConditions[column].notin
+            ) {
+              subModuleWhereConditions[column].notin = [
+                ...new Set([
+                  ...subModuleWhereConditions[column].notin,
+                  ...valuesArray,
+                ]),
+              ];
+            } else {
+              subModuleWhereConditions[column] = { notin: valuesArray };
+            }
+          }
+        }
+      });
+
+      //  Collect Sub Sub Module Where Condition data
+      let subSubModuleWhereConditions = {};
+      $("#subSubModuleWhereConditionContainer .row").each(function () {
+        const column = $(this).find(".subSubModuleWhereColumnSelect").val();
+        const condition = $(this)
+          .find(".subSubModuleWhereConditionSelect")
+          .val();
+        let value = $(this).find(".subSubModuleWhereConditionValue").val();
+
+        // Check if a valid column and condition are selected
+        if (column && condition) {
+          if (condition === "=") {
+            subSubModuleWhereConditions[column] = value;
+          } else if (condition === "LIKE") {
+            subSubModuleWhereConditions[column] = { like: value };
+          } else if (condition === "IN (...)") {
+            const valuesArray = value.split(",").map((v) => v.trim());
+            if (
+              subSubModuleWhereConditions[column] &&
+              subSubModuleWhereConditions[column].in
+            ) {
+              subSubModuleWhereConditions[column].in = [
+                ...new Set([
+                  ...subSubModuleWhereConditions[column].in,
+                  ...valuesArray,
+                ]),
+              ];
+            } else {
+              subSubModuleWhereConditions[column] = { in: valuesArray };
+            }
+          } else if (condition === "NOT IN (...)") {
+            const valuesArray = value.split(",").map((v) => v.trim());
+            if (
+              subSubModuleWhereConditions[column] &&
+              subSubModuleWhereConditions[column].notin
+            ) {
+              subSubModuleWhereConditions[column].notin = [
+                ...new Set([
+                  ...subSubModuleWhereConditions[column].notin,
+                  ...valuesArray,
+                ]),
+              ];
+            } else {
+              subSubModuleWhereConditions[column] = { notin: valuesArray };
+            }
+          }
+        }
+      });
+
+
+
+      // Construct the final payload
+      const payload = {
+        modelName,
+        relations,
+        whereCondition,
+        moduleWhereConditions,
+        subModuleWhereConditions,
+        subSubModuleWhereConditions,
+      };
+
+      // Get the filtered response
+      filteredResponse = await buildResponse(payload);
+      if (filteredResponse.relations.length === 0) {
+        delete filteredResponse.relations;
+      }
+
+      document.getElementById("jsonDisplay").textContent = JSON.stringify(
+        filteredResponse,
+        null,
+        2
+      );
+    }
+
+    // handle copy json
+    document
+      .getElementById("copyButton")
+      .addEventListener("click", async function () {
+        if (filteredResponse) {
+          try {
+            await navigator.clipboard.writeText(
+              JSON.stringify(filteredResponse, null, 2)
+            );
+            copyButton.innerHTML = '<i class="fas fa-check"></i>';
+
+            // Revert the text and icon back to "Copy Code" after 2 seconds
+            setTimeout(() => {
+              copyButton.innerHTML = '<i class="fas fa-copy"></i>';
+            }, 2000);
+          } catch (err) {
+            console.error("Failed to copy: ", err);
+            alert("Failed to copy JSON to clipboard. Please try again.");
+          }
+        } else {
+          alert("No data to copy!");
+        }
+      });
+
+    function buildResponse(payload) {
+      const {
+        modelName,
+        relations,
+        whereCondition,
+        moduleWhereConditions,
+        subModuleWhereConditions,
+        subSubModuleWhereConditions,
+      } = payload;
+
+      // Filtering relations based on provided values
+      const filteredRelations = relations
+        .map((relation) => {
+          const {
+            module,
+            moduleAs,
+            subModule,
+            subModuleAs,
+            subSubModule,
+            subSubModuleAs,
+            isModuleWhereConditionRequired,
+            isSubModuleWhereConditionRequired,
+            required,
+          } = relation;
+
+          // Create a new object to store the filtered relation
+          const filteredRelation = {};
+
+          // Include fields only if they have values
+          if (module && module !== "Select Module")
+            filteredRelation.module = module;
+          if (moduleAs) filteredRelation.moduleAs = moduleAs;
+          if (subModule && subModule !== "Select Sub Module")
+            filteredRelation.subModule = subModule;
+          if (subModuleAs) filteredRelation.subModuleAs = subModuleAs;
+          if (subSubModule && subSubModule !== "Select Sub Sub Module")
+            filteredRelation.subSubModule = subSubModule;
+          if (subSubModuleAs) filteredRelation.subSubModuleAs = subSubModuleAs;
+
+          // Include boolean flags only if their values are explicitly set to true
+          if (module && module !== "Select Module") {
+            if (isModuleWhereConditionRequired !== undefined)
+              filteredRelation.isModuleWhereConditionRequired =
+                isModuleWhereConditionRequired;
+            if (isSubModuleWhereConditionRequired !== undefined)
+              filteredRelation.isSubModuleWhereConditionRequired =
+                isSubModuleWhereConditionRequired;
+            if (required !== undefined) filteredRelation.required = required;
+          }
+
+          // Return the filtered relation if it has any values
+          return Object.keys(filteredRelation).length > 0
+            ? filteredRelation
+            : null;
+        })
+        .filter(Boolean); // Remove any null relations
+
+      // Building the response with only necessary fields
+      const response = {
+        modelName,
+        relations: filteredRelations,
+        whereCondition:
+          whereCondition && Object.keys(whereCondition).length
+            ? whereCondition
+            : undefined,
+        moduleWhereConditions:
+          moduleWhereConditions && Object.keys(moduleWhereConditions).length
+            ? moduleWhereConditions
+            : undefined,
+        subModuleWhereConditions:
+          subModuleWhereConditions &&
+            Object.keys(subModuleWhereConditions).length
+            ? subModuleWhereConditions
+            : undefined,
+        subSubModuleWhereConditions:
+          subSubModuleWhereConditions &&
+            Object.keys(subSubModuleWhereConditions).length
+            ? subSubModuleWhereConditions
+            : undefined,
+      };
+
+      // Remove undefined fields from the response
+      Object.keys(response).forEach((key) => {
+        if (response[key] === undefined) {
+          delete response[key];
+        }
+      });
+
+      return response;
+    }
+
+    // Bind the generate payload button click event
+    $("#generatePayloadButton").on("click", generatePayload);
+  </script>
+
+  <style>
+    #whereConditionHide,
+    #moduleWhereConditionHide,
+    #subModuleWhereConditionHide,
+    #subSubModuleWhereConditionHide {
+      display: none;
+      background-color: #f2f2f2;
+      margin-bottom: 20px;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    .condition_title_and_btn_container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .condition_title {
+      font-weight: 500;
+    }
+
+    #JSONContainerHide {
+      display: none;
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      margin: 20px auto;
+      border-radius: 8px;
+    }
+
+    #jsonDisplay {
+      height: 400px;
+      background-color: #f4f4f4;
+      border: 1px solid #ccc;
+      padding: 10px;
+      white-space: pre-wrap;
+      overflow-y: auto;
+      font-family: monospace;
+      margin-bottom: 40px;
+      border-radius: 5px;
+      position: relative;
+      font-size: 17px;
+    }
+
+    #copyButton {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 50%;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</div>
