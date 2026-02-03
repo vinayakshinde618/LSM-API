@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.branch_masters, { foreignKey: 'branch_id', as: 'branch_masters' });
       this.belongsTo(models.user_masters, { foreignKey: 'created_by', as: 'user_masters_create' });
       this.belongsTo(models.user_masters, { foreignKey: 'updated_by', as: 'user_masters_update' });
+      this.hasMany(models.seat_masters, { foreignKey: 'floor_id' });
     }
   }
   floor_masters.init({

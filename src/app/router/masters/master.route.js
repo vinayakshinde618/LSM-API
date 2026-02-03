@@ -3,6 +3,7 @@ const router = express.Router();
 const { saveRecords, getRecords, uploadBinaryFile, modelList, schemaList, runQuery, columnListByModel, syncDatabase, updaterelationaldata, createUpdateRecords, saveUpdateRecords } = require('../../controller/masters/masters.controller');
 const dynamicMulter = require('../../middleware/dynamicMulter.middleware');  // Import the middleware
 const { saveBase64File } = require('../../controller/commanFunctions/base64FileUpload.controller');
+const { createOrUpdateMenuAccess } = require('../../controller/masters/menuAccess.controller.js');
 
 router.get('/', (req, res) => {
   res.json({
@@ -38,5 +39,7 @@ router.post('/runQuery', runQuery);
 
 // sync database
 router.get('/syncDatabase/:type', syncDatabase);
+
+router.post('/createOrUpdateMenuAccess', createOrUpdateMenuAccess);
 
 module.exports = router;

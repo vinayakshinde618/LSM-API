@@ -1,5 +1,6 @@
 const { getSchemaModels } = require('../commanFunctions/schemaModels.controller');
 const { Op } = require('sequelize');
+const { modifyResponse } = require('./modifyResponse.controller');
 
 async function getRecord(params) {
     try {
@@ -124,6 +125,12 @@ async function getRecord(params) {
             });
 
             result.rows = result.rows.map(row => row.toJSON());
+        }
+
+        // Check if response modification is requested
+        if (params.modifyResponse) {
+            await modifyResponse(params, result.rows, Model);
+            result.count = getCount(result, params);
         }
 
         return result;
@@ -538,6 +545,14 @@ async function processIncludes(includes, Model) {
     }
 
     return result;
+}
+
+function getCount(result, params) {
+    if (params.modifyResponse && ['getPurchaseInwardTaxDetails', 'getInvoiceItemTaxDetails', 'getPurchaseOrderItemTaxDetails', 'updateInwardStatus'].includes(params.modifyResponse)) {
+        return result.count;
+    } else {
+        return result.rows.length; // Return count as the number of rows returned
+    }
 }
 
 module.exports = { getRecord }

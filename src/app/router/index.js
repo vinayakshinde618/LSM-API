@@ -10,5 +10,6 @@ router.get('/', (req, res) => {
 
 router.use('/auth', require('./auth/auth.route'));
 router.use('/', require('./masters/master.route'));
+router.use('/dashboard', require('./dashboard/dashboard.route'));
 
 module.exports = router;

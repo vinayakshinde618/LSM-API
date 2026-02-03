@@ -40,58 +40,18 @@ exports.signUp = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
-    const { whereCondition, password, modelName, schema } = req.body;
+    const { whereCondition, password, modelName } = req.body;
     if (!whereCondition) { return res.fail('Where condition is required.', []); }
-    if (!password) { return res.fail('Password is required.', []); }
     if (!modelName) { return res.fail('Model name is required.', []); }
-    // if (!schema) { return res.fail('Schema is required.', []); }
 
-    if (schema == 'admin_config') {
-      const schema_name = "admin_config"
-      const AdminModels = getSchemaModels(schema_name);
+    const user = await Model[modelName].findOne({ where: whereCondition });
 
-      const user = await AdminModels[modelName].findOne({ where: whereCondition });
-      if (user) {
-        userFound = true;
-        const isValid = await bcrypt.compare(password, user.password);
-        if (!isValid) {
-          return res.fail('User is not valid.', []);
-        }
-      }
-
-      user.schema = schema_name;
-
-      if (user.is_active !== 'Active') {
-        return res.fail('User is not active.', []);
-      }
-
-      const { password: user_password } = user;
-      const isValid = await bcrypt.compare(password, user_password);
-      if (!isValid) { return res.fail('Invalid Password.', []); }
-
-      const token = jwt.sign({ id: user.id }, secret, { expiresIn: 86400 }); // 86400 is 24 hours
-      return res.success('User logged in successfully.', { schema: schema_name, user, token });
+    if (!user) {
+      return res.fail('User not found, please check credentials', []);
     }
-    const result = await findUserInSchemas({ whereCondition, password, modelName, schema });
-
-    if (!result.success) {
-      return res.fail(result.message, []);
-    }
-
-    const { user, schema: userSchema } = result;
-
-    user.schema = userSchema;
-
-    if (user.is_active !== 'Active') {
-      return res.fail('User is not active.', []);
-    }
-
-    const { password: user_password } = user;
-    const isValid = await bcrypt.compare(password, user_password);
-    if (!isValid) { return res.fail('Invalid Password.', []); }
-
+    const schema = 'public';
     const token = jwt.sign({ id: user.id }, secret, { expiresIn: 86400 }); // 86400 is 24 hours
-    return res.success('User logged in successfully.', { schema: userSchema, user, token });
+    return res.success('User logged in successfully.', { schema, user, token });
   } catch (error) {
     console.error('Error during user authentication:', error);
     return res.catchError('Internal Server Error.', []);
