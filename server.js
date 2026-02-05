@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const server = http.createServer(app);
 const env = process.env.ENV || 'dev';
-const config = require('./src/app/config/config.json')[env];
+const config = require('./src/app/config/config-sample.json')[env];
 const PORT = config.PORT;
 
 // server.listen(PORT, () => {

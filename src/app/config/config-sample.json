@@ -5,8 +5,8 @@
     "database": "lsm",
     "host": "localhost",
     "dialect": "postgres",
-    "PORT": 9008,
-    "base_url": "http://localhost:9001",
+    "PORT": 1000,
+    "base_url": "http://localhost:1000",
     "frontend_url": "http://localhost:3000"
   },
   "test": {

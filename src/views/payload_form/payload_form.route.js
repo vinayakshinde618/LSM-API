@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const env = process.env.ENV || 'dev';
-const config = require('../../app/config/config.json')[env];
+const config = require('../../app/config/config-sample.json')[env];
 
 // table pages
 router.get('/payload_form', (req, res) => {
