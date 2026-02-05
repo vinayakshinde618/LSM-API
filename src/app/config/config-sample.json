@@ -10,12 +10,19 @@
     "frontend_url": "http://localhost:3000"
   },
   "test": {
-    "username": "postgres",
-    "password": "root",
-    "database": "toolivo_live_2",
-    "host": "localhost",
+    "username": "neondb_owner",
+    "password": "npg_KhHx3IrF8ODE",
+    "database": "neondb",
+    "host": "ep-weathered-cell-ai0ni7dk-pooler.c-4.us-east-1.aws.neon.tech",
     "dialect": "postgres",
-    "PORT": 9008,
+    "PORT": 1000,
+    "ssl": true,
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    },
     "base_url": "http://localhost:9001",
     "frontend_url": "http://localhost:3000"
   },

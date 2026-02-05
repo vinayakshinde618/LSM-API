@@ -1,0 +1,288 @@
+-- tenants
+CREATE TABLE tenants (
+  id SERIAL PRIMARY KEY,
+  tenant_name VARCHAR(255),
+  email_id VARCHAR(255),
+  phone VARCHAR(50),
+  logo VARCHAR(255),
+  address TEXT,
+  is_active BOOLEAN,
+  created_by INTEGER,
+  updated_by INTEGER,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- role_masters
+CREATE TABLE role_masters (
+  id SERIAL PRIMARY KEY,
+  tenant_id INTEGER,
+  role_name VARCHAR(255),
+  is_active BOOLEAN,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- menu_masters
+CREATE TABLE menu_masters (
+  id SERIAL PRIMARY KEY,
+  tenant_id INTEGER,
+  menu_name VARCHAR(255),
+  menu_url VARCHAR(255),
+  menu_icon VARCHAR(255),
+  is_child BOOLEAN,
+  parent_id INTEGER,
+  sequence INTEGER,
+  is_active BOOLEAN,
+  created_by INTEGER,
+  updated_by INTEGER,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- menu_access_masters
+CREATE TABLE menu_access_masters (
+  id SERIAL PRIMARY KEY,
+  tenant_id INTEGER,
+  role_id INTEGER,
+  menu_id INTEGER,
+  access BOOLEAN,
+  is_active BOOLEAN,
+  created_by INTEGER,
+  updated_by INTEGER,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- branch_masters
+CREATE TABLE branch_masters (
+  id SERIAL PRIMARY KEY,
+  tenant_id INTEGER,
+  branch_name VARCHAR(255),
+  address TEXT,
+  contact_number BIGINT,
+  is_active BOOLEAN,
+  created_by INTEGER,
+  updated_by INTEGER,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- floor_masters
+CREATE TABLE floor_masters (
+  id SERIAL PRIMARY KEY,
+  tenant_id INTEGER,
+  branch_id INTEGER,
+  floor_name VARCHAR(255),
+  capacity INTEGER,
+  is_active BOOLEAN,
+  created_by INTEGER,
+  updated_by INTEGER,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- seat_masters
+CREATE TABLE seat_masters (
+  id SERIAL PRIMARY KEY,
+  tenant_id INTEGER,
+  branch_id INTEGER,
+  floor_id INTEGER,
+  seat_number VARCHAR(50),
+  seat_type VARCHAR(50),
+  is_active BOOLEAN,
+  created_by INTEGER,
+  updated_by INTEGER,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- user_masters
+CREATE TABLE user_masters (
+  id SERIAL PRIMARY KEY,
+  tenant_id INTEGER,
+  role_id INTEGER,
+  name VARCHAR(255),
+  email_id VARCHAR(255),
+  username VARCHAR(255),
+  password VARCHAR(255),
+  mobile_number BIGINT,
+  is_active BOOLEAN,
+  created_by INTEGER,
+  updated_by INTEGER,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- student_masters
+CREATE TABLE student_masters (
+  id SERIAL PRIMARY KEY,
+  tenant_id INTEGER,
+  branch_id INTEGER,
+  floor_id INTEGER,
+  student_code INTEGER,
+  full_name VARCHAR(255),
+  mobile_number VARCHAR(20),
+  email_id VARCHAR(255),
+  dob VARCHAR(20),
+  gender VARCHAR(20),
+  address TEXT,
+  photo TEXT,
+  id_proof TEXT,
+  joining_date DATE,
+  status INTEGER,
+  is_active BOOLEAN,
+  created_by INTEGER,
+  updated_by INTEGER,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- seat_slot_masters
+CREATE TABLE seat_slot_masters (
+  id SERIAL PRIMARY KEY,
+  tenant_id INTEGER,
+  slot_name VARCHAR(255),
+  slot_type VARCHAR(50),
+  start_time DATE,
+  end_time DATE,
+  is_active BOOLEAN,
+  created_by INTEGER,
+  updated_by INTEGER,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- payment_plans
+CREATE TABLE payment_plans (
+  id SERIAL PRIMARY KEY,
+  tenant_id INTEGER,
+  plan_name VARCHAR(255),
+  duration_days INTEGER,
+  slot_applicable VARCHAR(50),
+  amount DECIMAL(10,2),
+  is_refundable BOOLEAN,
+  is_active BOOLEAN,
+  created_by INTEGER,
+  updated_by INTEGER,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- term_and_condition_masters
+CREATE TABLE term_and_condition_masters (
+  id SERIAL PRIMARY KEY,
+  tenant_id INTEGER,
+  title VARCHAR(255),
+  description TEXT,
+  is_active BOOLEAN,
+  created_by INTEGER,
+  updated_by INTEGER,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- library_facility_masters
+CREATE TABLE library_facility_masters (
+  id SERIAL PRIMARY KEY,
+  tenant_id INTEGER,
+  facility_name VARCHAR(255),
+  icon VARCHAR(255),
+  is_premium BOOLEAN,
+  is_active BOOLEAN,
+  created_by INTEGER,
+  updated_by INTEGER,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- student_attachements
+CREATE TABLE student_attachements (
+  id SERIAL PRIMARY KEY,
+  tenant_id INTEGER,
+  student_id INTEGER,
+  attachment_name VARCHAR(255),
+  attachments TEXT,
+  is_active BOOLEAN,
+  created_by INTEGER,
+  updated_by INTEGER,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- expense_type_masters
+CREATE TABLE expense_type_masters (
+  id SERIAL PRIMARY KEY,
+  tenant_id INTEGER,
+  expense_type_name VARCHAR(255),
+  is_active BOOLEAN,
+  created_by INTEGER,
+  updated_by INTEGER,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- seat_bookings
+CREATE TABLE seat_bookings (
+  id SERIAL PRIMARY KEY,
+  tenant_id INTEGER,
+  branch_id INTEGER,
+  floor_id INTEGER,
+  student_id INTEGER,
+  seat_id INTEGER,
+  slot_id INTEGER,
+  plan_id INTEGER,
+  start_date DATE,
+  end_date DATE,
+  status INTEGER,
+  is_active BOOLEAN,
+  created_by INTEGER,
+  updated_by INTEGER,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- payments
+CREATE TABLE payments (
+  id SERIAL PRIMARY KEY,
+  booking_id INTEGER,
+  student_id INTEGER,
+  amount FLOAT,
+  mode INTEGER,
+  transaction_id VARCHAR(255),
+  is_active BOOLEAN,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- notifications
+CREATE TABLE notifications (
+  id SERIAL PRIMARY KEY,
+  tenant_id INTEGER,
+  student_id INTEGER,
+  type INTEGER,
+  title VARCHAR(255),
+  message TEXT,
+  status INTEGER,
+  is_active BOOLEAN,
+  created_by INTEGER,
+  updated_by INTEGER,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- expences
+CREATE TABLE expences (
+  id SERIAL PRIMARY KEY,
+  tenant_id INTEGER,
+  branch_id INTEGER,
+  expense_type_id INTEGER,
+  amount FLOAT,
+  bill_photo TEXT,
+  expense_date DATE,
+  is_active BOOLEAN,
+  created_by INTEGER,
+  updated_by INTEGER,
+  "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
