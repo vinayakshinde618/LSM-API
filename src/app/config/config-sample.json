@@ -27,11 +27,20 @@
     "frontend_url": "http://localhost:3000"
   },
   "prod": {
-    "username": "bolzenindia_api",
-    "password": "vh]x4NvC?k&5Y~,Q",
-    "database": "bolzenindia_api",
-    "host": "139.162.32.130",
+    "username": "neondb_owner",
+    "password": "npg_KhHx3IrF8ODE",
+    "database": "neondb",
+    "host": "ep-weathered-cell-ai0ni7dk-pooler.c-4.us-east-1.aws.neon.tech",
     "dialect": "postgres",
-    "PORT": 9008
+    "PORT": 1000,
+    "ssl": true,
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    },
+    "base_url": "https://lmsapi-akqa.onrender.com/",
+    "frontend_url": "https://lsm-admin.vercel.app/"
   }
 }
